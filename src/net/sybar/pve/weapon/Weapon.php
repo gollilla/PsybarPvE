@@ -2,16 +2,13 @@
 
 namespace net\syabr\pve\weapon;
 
-class Weapon {
+use pocketmine\item\Item;
 
-    private static $weapons = [];
+abstract class Weapon extends Item {
 
-    public static function register(string $name, Weapon $weapon){
-        self::$weapons[$name] = $weapon;
-    }
+    abstract public function setCustomName(string $name);
+    abstract public function getCustomName();
+    abstract public function setPower(int $power);
+    abstract public function getPower();
 
-
-    public static function get(string $name){
-        return isset(self::$weapons[$name]) ? self::$weapons[$name] : null;
-    }
 }
