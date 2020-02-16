@@ -1,5 +1,5 @@
 <?php
-namespace net\syabr\pve\weapon;
+namespace net\sybar\pve\weapon;
 
 use pocketmine\item\Sword;
 
@@ -9,9 +9,6 @@ abstract class WeaponSword extends Sword implements Weapon
     public $xp = 0;
     /** @var float */
     private $baseAttackPoint = 5.0;
-
-    abstract public function getName(): string;
-    abstract public function getWeaponId(): int;
 
     public function __construct($id, $meta)
     {
@@ -32,6 +29,16 @@ abstract class WeaponSword extends Sword implements Weapon
     public function addXp(int $xp)
     {
         $this->xp += $xp;
+    }
+
+    public function getWeaponName(): string
+    {
+        return "";
+    }
+
+    public function getWeaponId(): int
+    {
+        return -1;
     }
 
     public function getAttackPoints(): float

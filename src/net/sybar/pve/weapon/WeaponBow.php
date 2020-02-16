@@ -10,9 +10,6 @@ abstract class WeaponBow extends Bow implements Weapon
     /** @var float */
     private $baseAttackPoint = 5.0;
 
-    abstract public function getName(): string;
-    abstract public function getWeaponId(): int;
-
     public function __construct($id, $meta)
     {
         parent::__construct($id, $meta, $this->getName());
@@ -32,6 +29,16 @@ abstract class WeaponBow extends Bow implements Weapon
     public function addXp(int $xp)
     {
         $this->xp += $xp;
+    }
+
+    public function getWeaponName(): string
+    {
+        return "";
+    }
+
+    public function getWeaponId(): int
+    {
+        return -1;
     }
 
     /**

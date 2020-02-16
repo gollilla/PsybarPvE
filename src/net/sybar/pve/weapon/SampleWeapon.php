@@ -8,7 +8,7 @@ use net\sybar\pve\mob\Mob;
 
 class SampleWeapon extends WeaponSword
 {
-    public function getName(): string
+    public function getWeaponName(): string
     {
         return "SampleWeapon";
     }
@@ -28,7 +28,7 @@ class SampleWeapon extends WeaponSword
                 return;
             }
             if ($damager instanceof Mob) {
-                $ev->setBaseDamage();
+                $ev->setBaseDamage($this->getAttackPoints());
             }
         }
     }
