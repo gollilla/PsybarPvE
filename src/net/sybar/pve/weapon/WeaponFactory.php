@@ -3,11 +3,13 @@ namespace net\sybar\pve\weapon;
 
 class WeaponFactory
 {
+    /** @var Weapon[] */
     private static $weapons = [];
 
     public static function init()
     {
         self::registerWeapon(new SampleWeapon());
+        self::registerWeapon(new Railgun());
     }
 
     public static function get(int $id): Weapon
