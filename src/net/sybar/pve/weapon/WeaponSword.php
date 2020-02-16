@@ -1,38 +1,46 @@
 <?php
-
 namespace net\syabr\pve\weapon;
 
-use pocketmine\item\Item;
 use pocketmine\item\Sword;
 
-abstract class WeaponSword extends Sword implements Weapon {
-
+abstract class WeaponSword extends Sword implements Weapon
+{
+    /** @var int */
     public $xp = 0;
-    private $baseAttackPoint = 5;
-    private $name;
+    /** @var float */
+    private $baseAttackPoint = 5.0;
 
-    abstract function getName();
+    abstract public function getName(): string;
+    abstract public function getWeaponId(): int;
 
-    public function __construct($id, $meta){
+    public function __construct($id, $meta)
+    {
         parent::__construct($id, $meta, $this->getName());
         $this->setUnbreakable();
     }
 
-    public function getXp(){
+    public function getXp(): int
+    {
         return $this->xp;
     }
 
-    public function calcLevel(){
+    public function calcLevel()
+    {
         $xp = $this->getXp();
     }
 
+    public function addXp(int $xp)
+    {
+        $this->xp += $xp;
+    }
 
-    public function getAttackPoints(){
+    public function getAttackPoints(): float
+    {
         return $this->baseAttackPoint;
     }
 
-    public function setAttackPoints(int $point){
+    public function setAttackPoints(int $point)
+    {
         $this->baseAttackPoint = $point;
     }
-
 }
