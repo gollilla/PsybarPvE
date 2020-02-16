@@ -12,7 +12,7 @@ abstract class WeaponBow extends Bow implements Weapon
 
     public function __construct($id, $meta)
     {
-        parent::__construct($id, $meta, $this->getName());
+        parent::__construct($id, $meta, $this->getWeaponName());
         $this->setUnbreakable();
     }
 
