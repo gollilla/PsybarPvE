@@ -2,13 +2,13 @@
 
 namespace net\sybar\pve\weapon;
 
-use pocketmine\item\Sword;
+
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\Player;
 use pocketmine\entity\Entity;
 use net\sybar\pve\mob\Mob;
 
-class SampleWeapon extends Item implements Weapon {
+class SampleWeapon extends WeaponSword {
 
     public function getName(){
         return "SampleWeapon";
