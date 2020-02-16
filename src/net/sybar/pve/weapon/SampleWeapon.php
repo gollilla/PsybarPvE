@@ -14,8 +14,7 @@ class SampleWeapon extends WeaponSword {
         return "SampleWeapon";
     }
 
-    public function onAttackEntity(EntityDamageEvent $ev){
-        //parent::onAttackEntity($ev->getEntity());
+    public function onAttack(EntityDamageEvent $ev){
         $damager = $ev->getDamager();
         $entity = $ev->getEntity();
         if($entity instanceof Player){
