@@ -13,17 +13,27 @@ abstract class WeaponSword extends Sword implements Weapon
     /** @var int */
     private $baseAttackPoint = 5;
 
+    private $opt = [];
+
     public function __construct($id = Item::WOODEN_SWORD, $meta = 0, $tier = Sword::TIER_WOODEN)
     {
         parent::__construct($id, $meta, $this->getWeaponName(), $tier);
         $this->setUnbreakable();
-        //$this->exp_tbl = new ExpTbl($this);
+        $this->exp_tbl = new ExpTbl($this);
+        $opt = [5,6,7,8];
+        $opt = $opt[mt_rand(0,4)];
+        $this->addOpt($opt);
     }
 
 
     public function getXp(): int
     {
         return $this->xp;
+    }
+
+    public function addOpt(int $atk)
+    {
+        $this->opt[] = $atk;
     }
 
 
@@ -56,7 +66,12 @@ abstract class WeaponSword extends Sword implements Weapon
 
     public function getAttackPoints(): int
     {
-        return $this->baseAttackPoint;
+        $level_calc = $this->getLevel() * 1.1;
+        $this->addOpt($level_calc);
+        foreach($this->getOpt() as $opt){
+            $this->baseAttackPoint += $opt;
+        }
+        return $this->baseAttackPoint + $this->getOpt();
     }
 
     public function setAttackPoints(int $point)
