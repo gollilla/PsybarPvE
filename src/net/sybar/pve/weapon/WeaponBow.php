@@ -15,7 +15,7 @@ abstract class WeaponBow extends Bow implements Weapon
     {
         parent::__construct($id, $meta, $this->getWeaponName());
         $this->setUnbreakable();
-        $this->exp_tbl = new ExpTbl($this);
+        //$this->exp_tbl = new ExpTbl($this);
     }
 
     public function getXp(): int
