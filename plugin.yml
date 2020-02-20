@@ -1,0 +1,4 @@
+name: PsybarPvE
+api: 3.0.0
+main: net\sybar\pve\main
+version: "1.0"

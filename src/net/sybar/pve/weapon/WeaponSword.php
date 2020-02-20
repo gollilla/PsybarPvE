@@ -17,7 +17,7 @@ abstract class WeaponSword extends Sword implements Weapon
     {
         parent::__construct($id, $meta, $this->getWeaponName(), $tier);
         $this->setUnbreakable();
-        $this->exp_tbl = new ExpTbl($this);
+        //$this->exp_tbl = new ExpTbl($this);
     }
 
 
