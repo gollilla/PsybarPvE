@@ -33,13 +33,12 @@ class NormalZombie extends Zombie {
     public function checkFront(): void
     {
         $dv = $this->getDirectionVector()->multiply(1);
-        $checkPos = $this->add($dv->x, $dv->y + 1, $dv->z)->floor();
-        if($this->level->getBlockAt($checkPos->x, $checkPos->y, $checkPos->z)->isSolid())
+        $checkPos = $this->add($dv->x, 0, $dv->z)->floor();
+        if($this->level->getBlockAt($checkPos->x, $this->y+1, $checkPos->z)->isSolid())
         {
             return;
         }
-        $checkPos = $checkPos->up(1)->floor();
-        if($this->level->getBlockAt($checkPos->x, $checkPos->y, $checkPos->z)->isSolid())
+        if($this->level->getBlockAt($checkPos->x, $this->y, $checkPos->z)->isSolid())
         {
             $this->jump();
         }
