@@ -21,7 +21,7 @@ abstract class WeaponSword extends Sword implements Weapon
         $this->setUnbreakable();
         $this->exp_tbl = new ExpTbl($this);
         $opt = [5,6,7,8];
-        $opt = $opt[mt_rand(0,4)];
+        $opt = $opt[mt_rand(0,3)];
         $this->addOpt($opt);
     }
 

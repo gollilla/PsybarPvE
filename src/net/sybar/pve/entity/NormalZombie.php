@@ -3,30 +3,97 @@
 namespace net\sybar\pve\entity;
 
 use pocketmine\entity\Zombie;
+use pocketmine\entity\Entity;
 use pocketmine\PLayer;
+use pocketmine\math\Vector3;
+use pocketmine\event\entity\EntityDamageEvent;
 
 class NormalZombie extends Zombie {
 
     private $target = null;
-    private $speed = 0.5;
-    
+    private $speed = 0.3;
+    private $attackTick = 0;
+
     public function entityBaseTick(int $tickDiff = 1): bool
     {
-        if($this->getTarget() != NULL)
-            return parent::entityBaseTick($tickDiff);
+        $hasUpdate = parent::entityBaseTick($tickDiff);
+        $this->attackTick -= $tickDiff;
+        /*if($this->attackTick < 0){
+            $this->attackTick = 0;
+        }else{
+            return false;
+        }*/
+        /*if(!$this->onGround)
+            return false;*/
+        if($this->attackTick > 0){
+            return false;
+        }else{
+            $this->attackTick = 0;
+        }
+        if($this->getTarget() == NULL)
+            return $hasUpdate;
 
         $target = $this->getTarget();
         if(!($target instanceof Player))
-            return parent::entityBaseTick($tickDiff);
+            return $hasUpdate;
+        
         $speed = $this->getSpeed();
         $this->lookAt($target);
+
+        if($this->distance($target) < 1)
+            return $hasUpdate;
+
+        $moveX = sin(-deg2rad($this->yaw)) * $speed;
+        $moveZ = cos(-deg2rad($this->yaw)) * $speed;
+        $this->checkFront();
+        $this->motion->x = $moveX;
+        $this->motion->z = $moveZ;
+        //$this->updateMovement();
+        //$this->move($moveX, 0, $moveZ);
+        //$this->setMotion(new Vector3($moveX, 0, $moveZ));
+
+        return true;
+    }
+
+
+    /*public function knockBack(Entity $attacker, float $damage, float $x, float $z, float $base = 0.4) : void{
+        parent::knockBack($attacker, $damage, -$x, -$z, $base);
+    }*/
+
+    public function attack(EntityDamageEvent $source): void
+    {
+        $this->attackTick = 10;
+        parent::attack($source);
+    }
+
+    /*public function onUpdate(int $currentTick): bool
+    {
+        if($this->getTarget() != NULL)
+            return parent::onUpdate($currentTick);
+
+        $target = $this->getTarget();
+        if(!($target instanceof Player))
+            return parent::onUpdate($currentTick);
+        
+        $speed = $this->getSpeed();
+        $this->lookAt($target);
+
+        if($this->distance($target) < 1)
+            return parent::onUpdate($currentTick);
+
         $moveX = sin($this->yaw / M_PI * 180) * $speed;
         $moveZ = cos($this->yaw / M_PI * 180) * $speed;
         $this->checkFront();
         $this->motion->x = $moveX;
         $this->motion->z = $moveZ;
 
-        return parent::entityBaseTick($tickDiff);
+        return parent::onUpdate($currentTick);
+    }*/
+
+    public function jump(): void
+    {
+        if($this->onGround)
+            $this->motion->y = 0.5;
     }
 
 
@@ -50,9 +117,21 @@ class NormalZombie extends Zombie {
         $this->target = $player;
     }
 
+
     public function getTarget()
     {
         return $this->target;
+    }
+
+
+    public function getSpeed(): float
+    {
+        return $this->speed;
+    }
+
+    
+    public function hasTarget(){
+        return !is_null($this->getTarget());
     }
 
 }
