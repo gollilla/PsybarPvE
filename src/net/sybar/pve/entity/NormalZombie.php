@@ -7,17 +7,18 @@ use pocketmine\entity\Entity;
 use pocketmine\PLayer;
 use pocketmine\math\Vector3;
 use pocketmine\event\entity\EntityDamageEvent;
+use pocketmine\event\entity\EntityDamageByEntityEvent;
 
 class NormalZombie extends Zombie {
 
     private $target = null;
-    private $speed = 0.3;
-    private $attackTick = 0;
+    private $speed = 0.28;
+    //private $attackTick = 0;
 
     public function entityBaseTick(int $tickDiff = 1): bool
     {
         $hasUpdate = parent::entityBaseTick($tickDiff);
-        $this->attackTick -= $tickDiff;
+        $this->attackTime -= $tickDiff;
         /*if($this->attackTick < 0){
             $this->attackTick = 0;
         }else{
@@ -25,11 +26,11 @@ class NormalZombie extends Zombie {
         }*/
         /*if(!$this->onGround)
             return false;*/
-        if($this->attackTick > 0){
+        if($this->attackTime > 0)
             return false;
-        }else{
-            $this->attackTick = 0;
-        }
+        else
+            $this->attackTime = 0;
+        
         if($this->getTarget() == NULL)
             return $hasUpdate;
 
@@ -62,8 +63,11 @@ class NormalZombie extends Zombie {
 
     public function attack(EntityDamageEvent $source): void
     {
-        $this->attackTick = 10;
+        if($source instanceof EntityDamageByEntityEvent)
+            $source->setKnockBack(0.5);
         parent::attack($source);
+        $this->attackTime = 17;
+        
     }
 
     /*public function onUpdate(int $currentTick): bool
