@@ -7,6 +7,7 @@ use pocketmine\entity\Entity;
 use net\sybar\pve\weapon\WeaponFactory;
 use net\sybar\pve\event\Listener;
 use net\sybar\pve\entity\NormalZombie;
+use net\sybar\pve\entity\EvocationFang;
 
 class main extends PluginBase {
 
@@ -16,6 +17,7 @@ class main extends PluginBase {
         $this->getServer()->getPluginManager()->registerEvents(new Listener($this), $this);
         WeaponFactory::init();
         Entity::registerEntity(NormalZombie::class, false, ['NormalZombie', 'minecraft:zombie']);
+        Entity::registerEntity(EvocationFang::class, false, ['EvocationFang', 'minecraft:evocation_fang', 'evocation_fang']);
     }
 
     public static function getInstance(): PluginBase

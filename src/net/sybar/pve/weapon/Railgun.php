@@ -2,11 +2,12 @@
 namespace net\sybar\pve\weapon;
 
 use pocketmine\Player;
+use pocketmine\entity\Entity;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\item\ItemFactory;
 use pocketmine\level\particle\RedstoneParticle;
 use pocketmine\math\AxisAlignedBB;
-use net\sybar\pve\entity\Mob;
+use net\sybar\pve\entity\NormalZombie;
 
 class Railgun extends WeaponBow
 {
@@ -64,7 +65,7 @@ class Railgun extends WeaponBow
             }
 
             foreach ($level->getNearbyEntities($bb, $player) as $e) {
-                if ($e instanceof Mob) {
+                if ($e instanceof Entity) {
                     $event = new EntityDamageByEntityEvent(
                         $player,
                         $e,

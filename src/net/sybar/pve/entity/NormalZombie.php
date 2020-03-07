@@ -13,19 +13,12 @@ class NormalZombie extends Zombie {
 
     private $target = null;
     private $speed = 0.28;
-    //private $attackTick = 0;
 
     public function entityBaseTick(int $tickDiff = 1): bool
     {
         $hasUpdate = parent::entityBaseTick($tickDiff);
         $this->attackTime -= $tickDiff;
-        /*if($this->attackTick < 0){
-            $this->attackTick = 0;
-        }else{
-            return false;
-        }*/
-        /*if(!$this->onGround)
-            return false;*/
+
         if($this->attackTime > 0)
             return false;
         else
@@ -49,9 +42,6 @@ class NormalZombie extends Zombie {
         $this->checkFront();
         $this->motion->x = $moveX;
         $this->motion->z = $moveZ;
-        //$this->updateMovement();
-        //$this->move($moveX, 0, $moveZ);
-        //$this->setMotion(new Vector3($moveX, 0, $moveZ));
 
         return true;
     }
@@ -70,29 +60,6 @@ class NormalZombie extends Zombie {
         
     }
 
-    /*public function onUpdate(int $currentTick): bool
-    {
-        if($this->getTarget() != NULL)
-            return parent::onUpdate($currentTick);
-
-        $target = $this->getTarget();
-        if(!($target instanceof Player))
-            return parent::onUpdate($currentTick);
-        
-        $speed = $this->getSpeed();
-        $this->lookAt($target);
-
-        if($this->distance($target) < 1)
-            return parent::onUpdate($currentTick);
-
-        $moveX = sin($this->yaw / M_PI * 180) * $speed;
-        $moveZ = cos($this->yaw / M_PI * 180) * $speed;
-        $this->checkFront();
-        $this->motion->x = $moveX;
-        $this->motion->z = $moveZ;
-
-        return parent::onUpdate($currentTick);
-    }*/
 
     public function jump(): void
     {
