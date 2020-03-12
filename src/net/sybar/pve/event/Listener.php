@@ -10,6 +10,7 @@ use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\entity\Entity;
 use net\sybar\pve\entity\NormalZombie;
 use net\sybar\pve\entity\EvocationFang;
+use net\sybar\pve\entity\Cannon;
 use pocketmine\Player;
 use net\sybar\pve\weapon\WeaponFactory;
 
@@ -21,19 +22,34 @@ class Listener implements EventListener {
     }
 
 
-    public function onJoin(PlayerMoveEvent $ev)
+    public function onJoin(PlayerJoinEvent $ev)
     {
         $player = $ev->getPlayer();
-        $nbt = Entity::createBaseNBT($player->add(1));
+        foreach($player->getLevel()->getEntities() as $e){
+            if($e instanceof Cannon){
+                $e->kill();
+            }
+        }
+        $nbt = Entity::createBaseNBT($player);
         /*$zombie = Entity::createEntity("NormalZombie", $player->getLevel(), $nbt);
         $zombie->getDataPropertyManager()->setString(Entity::DATA_INTERACTIVE_TAG, "発射!!", true);
         $zombie->spawnToAll();
         $railgun = WeaponFactory::get(2);
         $player->getInventory()->addItem($railgun);*/
-        $nbt->setInt("Warmup", 0);
-        $ev_fang = Entity::createEntity("EvocationFang", $player->getLevel(), $nbt);
+        //$nbt->setInt("Warmup", -21);
+        //$nbt->setString("Owner", $player->getName());
+        //$ev_fang = Entity::createEntity("EvocationFang", $player->getLevel(), $nbt);
+        //$ev_fang->getDataPropertyManager()->setInt(, -10, true);
         //$ev_fang->setScale(2.0);
-        $ev_fang->spawnTo($player);
+        //$ev_fang->spawnToAll();
+        $cannon = Entity::createEntity("Cannon", $player->getLevel(), $nbt);
+        //$cannon->iniSkin();
+        $cannon->spawnToAll();
+    }
+
+    public function onMove(PlayerMoveEvent $ev){
+        $player = $ev->getPlayer();
+        $player->sendTip("yaw" . $player->yaw);
     }
 
     public function onDamage(EntityDamageEvent $ev)

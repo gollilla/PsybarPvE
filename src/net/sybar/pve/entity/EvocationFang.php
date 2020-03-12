@@ -8,10 +8,10 @@ class EvocationFang extends Entity {
     public const NETWORK_ID = self::EVOCATION_FANG;
 
     public $width = 0.6;
-    public $height = 0.9;
+    public $height = 1.1;
     
     public function getName(): string{
-        return "evocation fang";
+        return "Evocation Fang";
     }
 
 
