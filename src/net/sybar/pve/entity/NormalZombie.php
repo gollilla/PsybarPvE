@@ -9,7 +9,7 @@ use pocketmine\math\Vector3;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 
-class NormalZombie extends Zombie {
+class NormalZombie extends Zombie implements Mob {
 
     private $target = null;
     private $speed = 0.28;

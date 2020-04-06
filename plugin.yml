@@ -1,6 +1,6 @@
 name: PsybarPvE
 main: net\sybar\pve\main
-authors: [soradore, deceitya]
+authors: [soradore, deceitya, kurarinjp]
 load: POSTWORLD
 version: 1.0.0
 api: [3.11.5]
